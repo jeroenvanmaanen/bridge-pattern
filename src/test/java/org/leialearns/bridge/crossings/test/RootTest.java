@@ -7,6 +7,7 @@ import org.leialearns.bridge.crossings.api.Message;
 import org.leialearns.bridge.crossings.api.Orientation;
 import org.leialearns.bridge.crossings.api.Puzzle;
 import org.leialearns.bridge.crossings.api.Root;
+import org.leialearns.bridge.crossings.api.Word;
 import org.leialearns.utilities.ExecutionListener;
 import org.leialearns.utilities.TestUtilities;
 import org.slf4j.Logger;
@@ -19,6 +20,7 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Iterator;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -78,6 +80,10 @@ public class RootTest {
         puzzle.check();
         String word = puzzle.getSlice(6, 4, Orientation.DOWN, 4);
         assertEquals("TREE", word);
+        Word.Iterable words = puzzle.getWords(Orientation.ACROSS);
+        int i = 0;
+        for (Iterator<Word> it = words.iterator(); it.hasNext(); it.next()) i++;
+        assertEquals(10, i);
     }
 
 }

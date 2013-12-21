@@ -4,6 +4,7 @@ import org.leialearns.bridge.BridgeOverride;
 import org.leialearns.bridge.FarObject;
 import org.leialearns.bridge.crossings.api.Orientation;
 import org.leialearns.bridge.crossings.api.Puzzle;
+import org.leialearns.utilities.TypedIterable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,6 +28,11 @@ public class PuzzleDTO implements FarObject<Puzzle> {
     @BridgeOverride
     public WordDTO getWord(int ordinal, Orientation orientation) {
         return words.get(orientation).get(ordinal);
+    }
+
+    @BridgeOverride
+    public TypedIterable<WordDTO> getWords(Orientation orientation) {
+        return new TypedIterable<>(words.get(orientation), WordDTO.class);
     }
 
     @SuppressWarnings("unused") // Called using reflection
