@@ -1,0 +1,163 @@
+<?xml version='1.1' ?>
+<puzzle>
+    <word>
+        <description>Found on beaches</description>
+        <length>4</length>
+        <startRow>1</startRow>
+        <startColumn>1</startColumn>
+        <orientation>across</orientation>
+        <value>SAND</value>
+    </word>
+    <word>
+        <description>Kind of fish you might find at the seashore</description>
+        <length>4</length>
+        <startRow>1</startRow>
+        <startColumn>6</startColumn>
+        <orientation>across</orientation>
+        <value>STAR</value>
+    </word>
+    <word>
+        <description>Wooden runner for sliding on snow</description>
+        <length>3</length>
+        <startRow>3</startRow>
+        <startColumn>4</startColumn>
+        <orientation>across</orientation>
+        <value>SKI</value>
+    </word>
+    <word>
+        <description>We use a hook and line to catch it</description>
+        <length>4</length>
+        <startRow>4</startRow>
+        <startColumn>1</startColumn>
+        <orientation>across</orientation>
+        <value>FISH</value>
+    </word>
+    <word>
+        <description>Measure of distance</description>
+        <length>4</length>
+        <startRow>5</startRow>
+        <startColumn>6</startColumn>
+        <orientation>across</orientation>
+        <value>MILE</value>
+    </word>
+    <word>
+        <description>Canvas shelter for camping</description>
+        <length>4</length>
+        <startRow>6</startRow>
+        <startColumn>1</startColumn>
+        <orientation>across</orientation>
+        <value>TENT</value>
+    </word>
+    <word>
+        <description>It grows when planted</description>
+        <length>4</length>
+        <startRow>6</startRow>
+        <startColumn>6</startColumn>
+        <orientation>across</orientation>
+        <value>SEED</value>
+    </word>
+    <word>
+        <description>Yesterday we - - - a race</description>
+        <length>3</length>
+        <startRow>6</startRow>
+        <startColumn>4</startColumn>
+        <orientation>across</orientation>
+        <value>RAN</value>
+    </word>
+    <word>
+        <description>Windy-day plaything</description>
+        <length>4</length>
+        <startRow>9</startRow>
+        <startColumn>1</startColumn>
+        <orientation>across</orientation>
+        <value>KITE</value>
+    </word>
+    <word>
+        <description>We do this in shallow water</description>
+        <length>4</length>
+        <startRow>9</startRow>
+        <startColumn>6</startColumn>
+        <orientation>across</orientation>
+        <value>WADE</value>
+    </word>
+    <word>
+        <description>Kind of board used for riding on water</description>
+        <length>4</length>
+        <startRow>1</startRow>
+        <startColumn>1</startColumn>
+        <orientation>down</orientation>
+        <value>SURF</value>
+    </word>
+    <word>
+        <description>Run swiftly</description>
+        <length>4</length>
+        <startRow>1</startRow>
+        <startColumn>4</startColumn>
+        <orientation>down</orientation>
+        <value>DASH</value>
+    </word>
+    <word>
+        <description>We love to do this during summer vacation</description>
+        <length>4</length>
+        <startRow>1</startRow>
+        <startColumn>6</startColumn>
+        <orientation>down</orientation>
+        <value>SWIM</value>
+    </word>
+    <word>
+        <description>Travel on horseback</description>
+        <length>4</length>
+        <startRow>1</startRow>
+        <startColumn>9</startColumn>
+        <orientation>down</orientation>
+        <value>RIDE</value>
+    </word>
+    <word>
+        <description>It gives us a tan</description>
+        <length>3</length>
+        <startRow>4</startRow>
+        <startColumn>3</startColumn>
+        <orientation>down</orientation>
+        <value>SUN</value>
+    </word>
+    <word>
+        <description>We skate on this in the winter</description>
+        <length>3</length>
+        <startRow>4</startRow>
+        <startColumn>7</startColumn>
+        <orientation>down</orientation>
+        <value>ICE</value>
+    </word>
+    <word>
+        <description>Journey by ox wagon</description>
+        <length>4</length>
+        <startRow>6</startRow>
+        <startColumn>1</startColumn>
+        <orientation>down</orientation>
+        <value>TREK</value>
+    </word>
+    <word>
+        <description>It gives us shade for our picnic lunch</description>
+        <length>4</length>
+        <startRow>6</startRow>
+        <startColumn>4</startColumn>
+        <orientation>down</orientation>
+        <value>TREE</value>
+    </word>
+    <word>
+        <description>Flakes for winter fun</description>
+        <length>4</length>
+        <startRow>6</startRow>
+        <startColumn>6</startColumn>
+        <orientation>down</orientation>
+        <value>SNOW</value>
+    </word>
+    <word>
+        <description>Quick plunge head first into the water</description>
+        <length>4</length>
+        <startRow>6</startRow>
+        <startColumn>9</startColumn>
+        <orientation>down</orientation>
+        <value>DIVE</value>
+    </word>
+</puzzle>

@@ -1,4 +1,4 @@
-package org.leialearns.bridge.crossings.logic;
+package org.leialearns.bridge.crossings.api;
 
 public interface Location {
     Orientation getOrientation();

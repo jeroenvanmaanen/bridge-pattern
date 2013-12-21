@@ -1,4 +1,4 @@
-package org.leialearns.bridge.crossings.logic;
+package org.leialearns.bridge.crossings.api;
 
 import java.net.URL;
 

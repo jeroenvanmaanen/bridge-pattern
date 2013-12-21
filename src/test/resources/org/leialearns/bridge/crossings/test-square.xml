@@ -1,0 +1,43 @@
+<?xml version='1.1' ?>
+<puzzle>
+    <word>
+        <description>A-E</description>
+        <length>5</length>
+        <startRow>1</startRow>
+        <startColumn>1</startColumn>
+        <orientation>across</orientation>
+        <value>ABCDE</value>
+    </word>
+    <word>
+        <description>F-J</description>
+        <length>5</length>
+        <startRow>2</startRow>
+        <startColumn>1</startColumn>
+        <orientation>across</orientation>
+        <value>FGHIJ</value>
+    </word>
+    <word>
+        <description>K-O</description>
+        <length>5</length>
+        <startRow>3</startRow>
+        <startColumn>1</startColumn>
+        <orientation>across</orientation>
+        <value>KLMNO</value>
+    </word>
+    <word>
+        <description>P-T</description>
+        <length>5</length>
+        <startRow>4</startRow>
+        <startColumn>1</startColumn>
+        <orientation>across</orientation>
+        <value>PQRST</value>
+    </word>
+    <word>
+        <description>U-Y</description>
+        <length>5</length>
+        <startRow>5</startRow>
+        <startColumn>1</startColumn>
+        <orientation>across</orientation>
+        <value>UVWXY</value>
+    </word>
+</puzzle>

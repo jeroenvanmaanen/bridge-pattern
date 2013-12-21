@@ -2,5 +2,9 @@
 <puzzle>
     <word ordinal='1' orientation='H' length='6'>
         <description>Witty aphorism</description>
+        <length>3</length>
+        <startRow>1</startRow>
+        <startColumn>1</startColumn>
+        <orientation>across</orientation>
     </word>
 </puzzle>

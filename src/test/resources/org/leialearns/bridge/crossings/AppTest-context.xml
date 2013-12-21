@@ -10,4 +10,41 @@
     <context:spring-configured />
     <context:component-scan base-package="org.leialearns" />
 
+    <bean id="factoryInjector" class="org.leialearns.bridge.FactoryInjector"/>
+
+    <bean id="registry" class="org.leialearns.bridge.BridgeHeadTypeRegistry" />
+
+    <bean id="puzzleDAO" class="org.leialearns.bridge.crossings.far.PuzzleDAO" />
+
+    <bean id="rootFactory" class="org.leialearns.bridge.BridgeFactory">
+        <constructor-arg value="org.leialearns.bridge.crossings.far.RootDTO"/>
+        <constructor-arg>
+            <array>
+                <ref bean="puzzleDAO" />
+            </array>
+        </constructor-arg>
+    </bean>
+
+    <bean id="puzzleFactory" class="org.leialearns.bridge.BridgeFactory">
+        <constructor-arg value="org.leialearns.bridge.crossings.far.PuzzleDTO"/>
+        <constructor-arg>
+            <array>
+                <null/>
+                <value type="java.lang.Class">org.leialearns.bridge.crossings.near.PuzzleAugmenter</value>
+            </array>
+        </constructor-arg>
+    </bean>
+
+    <bean id="wordFactory" class="org.leialearns.bridge.BridgeFactory">
+        <constructor-arg value="org.leialearns.bridge.crossings.far.WordDTO" />
+        <constructor-arg>
+            <array>
+            </array>
+        </constructor-arg>
+    </bean>
+
+    <bean id="rootDTO" class="org.leialearns.bridge.crossings.far.RootDTO" />
+
+    <bean id="root" factory-bean="rootDTO" factory-method="getNearObject" />
+
 </beans>
