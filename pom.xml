@@ -8,7 +8,15 @@
     <packaging>jar</packaging>
 
     <name>Bridge pattern</name>
+    <description>Package to decouple implementation classes from the interfaces that they implement.</description>
     <url>http://leialearns.org</url>
+
+    <licenses>
+        <license>
+            <name>LGPL 3.0 license</name>
+            <url>http://www.opensource.org/licenses/lgpl-3.0.html</url>
+        </license>
+    </licenses>
 
     <scm>
         <connection>scm:git:https://github.com/jeroenvanmaanen/bridge-pattern.git</connection>
@@ -81,11 +89,39 @@
                     <target>1.7</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>${maven-source-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${maven-javadoc-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
     <properties>
         <maven-compiler-plugin.version>2.3.2</maven-compiler-plugin.version>
+        <maven-source-plugin.version>2.2.1</maven-source-plugin.version>
+        <maven-javadoc-plugin.version>2.9.1</maven-javadoc-plugin.version>
         <spring.version>3.1.2.RELEASE</spring.version>
         <slf4j.version>1.6.6</slf4j.version>
         <junit.version>4.8.2</junit.version>
