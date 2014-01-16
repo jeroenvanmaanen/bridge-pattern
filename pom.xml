@@ -4,7 +4,7 @@
 
     <groupId>org.leialearns</groupId>
     <artifactId>bridge-pattern</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.1</version>
     <packaging>jar</packaging>
 
     <name>Bridge pattern</name>
