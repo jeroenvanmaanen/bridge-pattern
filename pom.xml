@@ -2,9 +2,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>7</version>
+    </parent>
+
     <groupId>org.leialearns</groupId>
     <artifactId>bridge-pattern</artifactId>
-    <version>0.1</version>
+    <version>0.2-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Bridge pattern</name>
@@ -20,6 +26,7 @@
 
     <scm>
         <connection>scm:git:https://github.com/jeroenvanmaanen/bridge-pattern.git</connection>
+        <developerConnection>scm:git:https://github.com/jeroenvanmaanen/bridge-pattern.git</developerConnection>
         <tag>HEAD</tag>
         <url>https://github.com/jeroenvanmaanen/bridge-pattern</url>
     </scm>
