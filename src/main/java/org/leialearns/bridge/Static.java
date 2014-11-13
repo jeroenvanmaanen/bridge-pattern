@@ -21,7 +21,9 @@ public class Static {
     /**
      * Returns the far object that corresponds to the given near object in a type safe way.
      * @param nearObject The near object
-     * @param farType The type of the far object
+     * @param farType The class that represents the type of the far object
+     * @param <FT> The type of the far object
+     * @param <NT> The type of the near object
      * @return The far object that corresponds to the given near object
      * @see BridgeFacets#getFarObject()
      */

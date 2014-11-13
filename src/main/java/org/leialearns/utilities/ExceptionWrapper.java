@@ -4,15 +4,14 @@ package org.leialearns.utilities;
  * <p>Provides a static function to wrap a throwable in a RuntimeException if necessary.</p>
  *
  * <p>This can be used instead of declaring checked exceptions, like this:</p>
- * <code>
- * <pre>
+ *
+ * <pre><code>
  *     try {
  *         f = open("/dev/null", "w");
  *     } catch (Throwable throwable) {
  *         throw ExceptionWrapper.wrap(throwable);
  *     }
- * </pre>
- * </code>
+ * </code></pre>
  */
 public class ExceptionWrapper {
 

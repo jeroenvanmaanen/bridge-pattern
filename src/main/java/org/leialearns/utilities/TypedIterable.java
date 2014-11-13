@@ -1,11 +1,14 @@
 package org.leialearns.utilities;
 
 import java.util.Iterator;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 /**
  * Adds a bit of run-time type information to an iterable.
  * @param <T> The base type of the iterable
  */
+@SuppressWarnings("unused")
 public class TypedIterable<T> implements Iterable<T>, HasWrappedIterable {
     private final Iterable<T> iterable;
     private final Class<T> type;
@@ -36,6 +39,15 @@ public class TypedIterable<T> implements Iterable<T>, HasWrappedIterable {
      */
     public Iterator<T> iterator() {
         return iterable.iterator();
+    }
+
+    /**
+     * Returns this iterable as a {@link Stream}.
+     *
+     * @return This iterable as a stream
+     */
+    public Stream<T> stream() {
+        return StreamSupport.stream(spliterator(), false);
     }
 
     /**

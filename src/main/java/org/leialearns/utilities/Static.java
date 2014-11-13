@@ -3,6 +3,7 @@ package org.leialearns.utilities;
 import java.lang.reflect.Array;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -12,6 +13,30 @@ public class Static {
 
     private Static() {
         throw new UnsupportedOperationException("This class must not be instantiated: " + getClass().getSimpleName());
+    }
+
+    @SuppressWarnings("unused")
+    public static <T> Iterable<T> notNull(Iterable<T> iterable) {
+        return iterable == null ? Collections.EMPTY_LIST : iterable;
+    }
+
+    @SuppressWarnings("unused")
+    public static <T extends Comparable<T>> int compare(T left, T right) {
+        int result;
+        if (left == null) {
+            if (right == null) {
+                result = 0;
+            } else {
+                result = -1;
+            }
+        } else {
+            if (right == null) {
+                result = 1;
+            } else {
+                result = left.compareTo(right);
+            }
+        }
+        return result;
     }
 
     /**

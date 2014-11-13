@@ -404,7 +404,8 @@ public class BridgeFactory {
      * occurs first in the helper array is returned. An {@link java.lang.IllegalStateException IllegalStateException}
      * is thrown when no helper is found.
      *
-     * @param type The type of the requested helper
+     * @param type The class that represents the type of the requested helper
+     * @param <T>  The type of the requested helper
      * @return The requested helper
      */
     @SuppressWarnings("unused")

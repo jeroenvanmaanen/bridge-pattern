@@ -9,6 +9,8 @@ public interface DeclaresNearType<NT> {
     /**
      * Declares the near type that corresponds to the object that implements this interface. The return type of
      * this method can be obtained using reflection.
+     *
+     * @return Never; always throws {@link java.lang.UnsupportedOperationException}
      * @throws java.lang.UnsupportedOperationException <strong>Always</strong>
      */
     NT declareNearType();

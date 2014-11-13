@@ -74,7 +74,7 @@ public class Setting<T> {
      * first. If the expression that calculates the default value returns null, an <code>IllegalStateException</code>
      * is thrown.
      * @return The value of this setting
-     * @throws java.lang.IllegalStateException
+     * @throws java.lang.IllegalStateException When the value is not set
      */
     public T get() {
         return getInternal(
