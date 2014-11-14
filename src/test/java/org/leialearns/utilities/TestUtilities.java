@@ -25,13 +25,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.leialearns.utilities.Display.display;
-import static org.leialearns.utilities.Static.asList;
-import static org.leialearns.utilities.Static.compare;
-import static org.leialearns.utilities.Static.equal;
-import static org.leialearns.utilities.Static.gcd;
-import static org.leialearns.utilities.Static.getLoggingClass;
-import static org.leialearns.utilities.Static.notNull;
-import static org.leialearns.utilities.Static.toList;
+import static org.leialearns.utilities.Static.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"/org/leialearns/bridge/crossings/AppTest-context.xml"})
@@ -103,6 +97,39 @@ public class TestUtilities {
         Object trivial = new Object();
         assertFalse(equal(null, trivial));
         assertFalse(equal(trivial, null));
+    }
+
+    @Test
+    public void testOfferSingle() {
+        Integer[] array = offer(0, new Integer[] {1, 2});
+        assertEquals(3, array.length);
+        for (int i = 0; i < array.length; i++) {
+            assertEquals(i, array[i].intValue());
+        }
+    }
+
+    @Test
+    public void testOfferMultiple() {
+        Integer[] array = offer(new Integer[] {0, 1}, new Integer[] {2, 3});
+        assertEquals(4, array.length);
+        for (int i = 0; i < array.length; i++) {
+            assertEquals(i, array[i].intValue());
+        }
+    }
+
+    @Test
+    public void testNewArrayInstance() {
+        Integer[] intArray = newArrayInstance(new Integer[0], 5);
+        assertNotNull(intArray);
+        assertTrue(intArray.getClass().isArray());
+        assertEquals(Integer.class, intArray.getClass().getComponentType());
+        assertEquals(5, intArray.length);
+
+        Comparable<?>[] stringArray = newArrayInstance(new String[0], 5);
+        assertNotNull(stringArray);
+        assertTrue(stringArray.getClass().isArray());
+        assertEquals(String.class, stringArray.getClass().getComponentType());
+        assertEquals(5, stringArray.length);
     }
 
     @Test

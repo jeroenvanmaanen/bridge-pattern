@@ -1,5 +1,6 @@
 package org.leialearns.utilities;
 
+import javax.validation.constraints.NotNull;
 import java.lang.reflect.Array;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -76,7 +77,7 @@ public class Static {
      * @param <T> The base type of the array
      * @return The extended array
      */
-    public static <T> T[] offer(T head, T[] tail) {
+    public static <T> T[] offer(T head, @NotNull T[] tail) {
         T[] result = newArrayInstance(tail, tail.length + 1);
         result [0] = head;
         System.arraycopy(tail, 0, result, 1, tail.length);
@@ -91,6 +92,12 @@ public class Static {
      * @return The extended array
      */
     public static <T> T[] offer(T[] prepend, T[] tail) {
+        if (prepend == null || prepend.length < 1) {
+            return tail;
+        }
+        if (tail == null || tail.length < 1) {
+            return prepend;
+        }
         T[] result = newArrayInstance(tail, prepend.length + tail.length);
         System.arraycopy(prepend, 0, result, 0, prepend.length);
         System.arraycopy(tail, 0, result, prepend.length, tail.length);
