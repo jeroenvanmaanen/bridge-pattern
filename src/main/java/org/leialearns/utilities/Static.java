@@ -15,12 +15,42 @@ public class Static {
         throw new UnsupportedOperationException("This class must not be instantiated: " + getClass().getSimpleName());
     }
 
-    @SuppressWarnings("unused")
+    /**
+     * Returns the given iterable, or an empty iterable if <code>null</code> is given.
+     *
+     * @param iterable The iterable
+     * @param <T> The base type of the iterable
+     * @return The given iterable, or an empty iterable if <code>null</code> is given
+     */
     public static <T> Iterable<T> notNull(Iterable<T> iterable) {
         return iterable == null ? Collections.EMPTY_LIST : iterable;
     }
 
-    @SuppressWarnings("unused")
+    /**
+     * Converts the given iterable to a {@link List}. Note: traversing the iterable may destroy the original.
+     *
+     * @param iterable The iterable
+     * @param <T> The base type of the iterable
+     * @return A list that contains the elements of the given iterable
+     */
+    public static <T> List<T> asList(Iterable<T> iterable) {
+        List<T> result = new ArrayList<>();
+        for (T item : iterable) {
+            result.add(item);
+        }
+        return result;
+    }
+
+    /**
+     * Compares the two given objects, handling <code>null</code> values predictably. A <code>null</code> value is
+     * compared smaller than a non-<code>null</code> value. See {@link Comparable#compareTo(Object)} for
+     * the definition of the return value.
+     *
+     * @param left The left object
+     * @param right The right object
+     * @param <T> The type of both objects, extends {@link Comparable}
+     * @return an indication of whether <code>left</code> is smaller than, greater than or equal to <code>right</code>
+     */
     public static <T extends Comparable<T>> int compare(T left, T right) {
         int result;
         if (left == null) {
@@ -123,6 +153,13 @@ public class Static {
         return builder.toString();
     }
 
+    /**
+     * Converts the given iterable to a {@link List}. Note: traversing the iterable may destroy the original.
+     *
+     * @param iterable The iterable
+     * @param <T> The base type of the iterable
+     * @return A list that contains the elements of the given iterable
+     */
     public static <T> List<T> toList(TypedIterable<T> iterable) {
         List<T> result = new ArrayList<>();
         for (T item : iterable) {
