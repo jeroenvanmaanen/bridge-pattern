@@ -57,7 +57,7 @@ public class SimpleFormatter extends Formatter {
     private static final Pattern CAUSED_BY_RE = Pattern.compile("^Caused by", Pattern.MULTILINE);
     private static final Pattern HEAD_RE = Pattern.compile("^((?:(?:[\t ]*at   |[^\t ])[^\n]*\n)*).*", Pattern.DOTALL);
     private static final Pattern DELETE_RE = Pattern.compile("(^[\t ]*at   .*\n)+", Pattern.MULTILINE);
-    private final Setting<Boolean> regexFormat = new SilentSetting<Boolean>("Regex format flag", false);
+    private final Setting<Boolean> regexFormat = new SilentSetting<>("Regex format flag", false);
 
     /**
      * Creates a new <code>SimpleFormatter</code> instance.
@@ -101,8 +101,8 @@ public class SimpleFormatter extends Formatter {
             }
         } else {
             StringTokenizer tokenizer = new StringTokenizer(sourceClass, ".");
-            List<String> organisationList = new ArrayList<String>();
-            LinkedList<String> sourceClassList = new LinkedList<String>();
+            List<String> organisationList = new ArrayList<>();
+            LinkedList<String> sourceClassList = new LinkedList<>();
             while (tokenizer.hasMoreTokens()) {
                 String token = tokenizer.nextToken();
                 if (organisationList.size() < 2) {
@@ -132,7 +132,7 @@ public class SimpleFormatter extends Formatter {
                         break;
                     }
                 } while (it.hasNext());
-                List<String> partList = new ArrayList<String>();
+                List<String> partList = new ArrayList<>();
                 while (it.hasPrevious()) {
                     String part = it.previous();
                     partList.add(part);
@@ -151,6 +151,8 @@ public class SimpleFormatter extends Formatter {
             builder.append(part);
         }
         builder.append('\n');
+
+        //noinspection ThrowableResultOfMethodCallIgnored
         Throwable thrown = logRecord.getThrown();
         if (thrown != null && logger.isDebugEnabled()) {
             StringWriter stringWriter = new StringWriter();
@@ -186,7 +188,7 @@ public class SimpleFormatter extends Formatter {
     protected String reduceStackBlock(String block) {
         String result;
         Matcher matcher = HEAD_RE.matcher(block);
-        if (matcher == null || !matcher.matches()) {
+        if (!matcher.matches()) {
             result = ">>> SPLIT FAILED\n" + block;
         } else {
             String head = matcher.group(1);

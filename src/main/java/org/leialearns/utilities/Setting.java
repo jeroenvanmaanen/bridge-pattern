@@ -41,12 +41,7 @@ public class Setting<T> {
      * @param defaultValue The default value
      */
     public Setting(String name, final T defaultValue) {
-        this(name, new Supplier<T>() {
-            @Override
-            public T get() {
-                return defaultValue;
-            }
-        });
+        this(name, () -> defaultValue);
     }
 
     /**
@@ -81,15 +76,8 @@ public class Setting<T> {
      */
     public T get() {
         return getInternal(
-            new Function<T, T>() {
-                @Override
-                public T apply(T x) {
-                    return x;
-                }
-            },
-            new Supplier<T>() {
-                @Override
-                public T get() {
+                x -> x,
+                () -> {
                     T defaultValue = defaultExpression.get();
                     if (defaultValue == null) {
                         throw new IllegalStateException("Value is not set: " + name);
@@ -97,7 +85,6 @@ public class Setting<T> {
                     value = defaultValue;
                     return defaultValue;
                 }
-            }
         );
     }
 
@@ -107,18 +94,8 @@ public class Setting<T> {
      */
     public boolean isFixated() {
         return getInternal(
-                new Function<T, Boolean>() {
-                    @Override
-                    public Boolean apply(T x) {
-                        return true;
-                    }
-                },
-                new Supplier<Boolean>() {
-                    @Override
-                    public Boolean get() {
-                        return false;
-                    }
-                }
+                x -> true,
+                () -> false
         );
     }
 

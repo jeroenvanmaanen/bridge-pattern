@@ -17,18 +17,12 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Supplier;
 
 import static org.leialearns.utilities.Static.getLoggingClass;
 
 public class PuzzleAugmenter extends BaseBridgeFacet {
     private final Logger logger = LoggerFactory.getLogger(getLoggingClass(this));
-    private Setting<Puzzle> puzzle = new Setting<>("Puzzle", new Supplier<Puzzle>() {
-        @Override
-        public Puzzle get() {
-            return (Puzzle) getBridgeFacets().getNearObject();
-        }
-    });
+    private Setting<Puzzle> puzzle = new Setting<>("Puzzle", () -> (Puzzle) getBridgeFacets().getNearObject());
     private List<char[]> layout = new ArrayList<>();
     private Map<Orientation,Integer> maxOrdinal = new HashMap<>();
 
@@ -65,12 +59,9 @@ public class PuzzleAugmenter extends BaseBridgeFacet {
     public String getSlice(int row, int column, Orientation orientation, int length) {
         char[] reference = new char[length];
         StringBuilder result = new StringBuilder();
-        visitSquares(row, column, orientation, reference, new SquareVisitor<StringBuilder>() {
-            @Override
-            public char visit(int distance, int arc, char oldChar, char newChar, StringBuilder accumulator) {
-                accumulator.append(oldChar);
-                return oldChar;
-            }
+        visitSquares(row, column, orientation, reference, (distance, arc, oldChar, newChar, accumulator) -> {
+            accumulator.append(oldChar);
+            return oldChar;
         }, result);
         return result.toString();
     }
@@ -89,20 +80,17 @@ public class PuzzleAugmenter extends BaseBridgeFacet {
         } else {
             row--;
         }
-        visitSquares(row, column, orientation, reference, new SquareVisitor<Collection<Message>>() {
-            @Override
-            public char visit(int distance, int arc, char oldChar, char newChar, Collection<Message> messages) {
-                char result = newChar;
-                char ref = oldChar;
-                if (Character.isAlphabetic(ref)) {
-                    ref = ' ';
-                }
-                if (oldChar != '?' && ref != newChar) {
-                    messages.add(new MessageImpl(-1, -1, MessageType.ADJACENT, ""));
-                    result = (ref != oldChar ? oldChar : ' ');
-                }
-                return result;
+        visitSquares(row, column, orientation, reference, (distance, arc, oldChar, newChar, messages1) -> {
+            char result = newChar;
+            char ref = oldChar;
+            if (Character.isAlphabetic(ref)) {
+                ref = ' ';
             }
+            if (oldChar != '?' && ref != newChar) {
+                messages1.add(new MessageImpl(-1, -1, MessageType.ADJACENT, ""));
+                result = (ref != oldChar ? oldChar : ' ');
+            }
+            return result;
         }, messages);
     }
 
@@ -111,14 +99,11 @@ public class PuzzleAugmenter extends BaseBridgeFacet {
         String candidate = word.get();
         if (candidate != null) {
             char[] chars = candidate.toCharArray();
-            visitSquares(word.getStartRow(), word.getStartColumn(), orientation, chars, new SquareVisitor<Collection<Message>>() {
-                @Override
-                public char visit(int distance, int arc, char oldChar, char newChar, Collection<Message> messages) {
-                    if (Character.isAlphabetic(oldChar) && newChar != oldChar) {
-                        messages.add(new MessageImpl(-1, -1, MessageType.CONFLICT, ""));
-                    }
-                    return newChar;
+            visitSquares(word.getStartRow(), word.getStartColumn(), orientation, chars, (distance, arc, oldChar, newChar, messages1) -> {
+                if (Character.isAlphabetic(oldChar) && newChar != oldChar) {
+                    messages1.add(new MessageImpl(-1, -1, MessageType.CONFLICT, ""));
                 }
+                return newChar;
             }, messages);
         }
     }

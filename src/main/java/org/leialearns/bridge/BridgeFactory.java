@@ -18,7 +18,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static org.leialearns.bridge.Static.getFarObject;
@@ -185,17 +184,17 @@ public class BridgeFactory {
      * @return The near object that corresponds to the given far object
      */
     public Object getNearObject(Object farObject) {
-        Object result = null;
+        Object nearObject = null;
         if (farObject instanceof BridgeFacet) {
             BridgeFacet facet = (BridgeFacet) farObject;
             if (facet.hasBridgeFacets()) {
                 BridgeFacets facets = facet.getBridgeFacets();
                 if (facets.hasNearObject()) {
-                    result = nearType.cast(facets.getNearObject());
+                    nearObject = nearType.cast(facets.getNearObject());
                 }
             }
         }
-        if (result == null) {
+        if (nearObject == null) {
             if (!farType.isInstance(farObject)) {
                 RuntimeException exception = new ClassCastException("Class: " + display(farType) + ": object: " + display(farObject));
                 if (logger.isTraceEnabled()) {
@@ -231,74 +230,71 @@ public class BridgeFactory {
             if (farObject instanceof BaseBridgeFacet && !((BaseBridgeFacet) farObject).hasBridgeFacets()) {
                 ((BaseBridgeFacet) farObject).setBridgeFacets(facets);
             }
-            result = newProxyInstance(getClass().getClassLoader(), nearType, interfaces, new InvocationHandler() {
-                @Override
-                public Object invoke(Object o, Method method, Object[] parameters) throws Throwable {
-                    Object result;
-                    if (logger.isTraceEnabled()) {
-                        logger.trace("Facets getter: " + display(facetsGetter));
-                    }
-                    if (method.equals(facetsGetter)) {
-                        result = facets;
-                    } else if (method.equals(facetsChecker)) {
-                        result = Boolean.TRUE;
-                    } else {
-                        Binding binding = methodMap.get(method);
-                        if (binding == null) {
-                            String message = "No binding found: " + display(nearType) + ": " + display(method);
-                            logger.warn(message);
-                            throw new UnsupportedOperationException(message);
-                        }
-                        result = binding.invoke(facets, parameters);
-                        Class<?> returnType = method.getReturnType();
-                        if (logger.isTraceEnabled()) {
-                            logger.trace("Return type: " + displayWithTypes(returnType));
-                        }
-                        if (result instanceof TypedIterable) {
-                            TypedIterable<?> typedIterable = (TypedIterable<?>) result;
-                            Class<?> baseType = typedIterable.getType();
-                            if (logger.isTraceEnabled()) {
-                                logger.trace("Iterable base type: " + display(baseType));
-                            }
-                            if (registry.hasFarType(baseType)) {
-                                Class<?> type = getNearType(baseType);
-                                result = getAdaptedIterable(returnType, typedIterable, type);
-                            } else if (registry.hasNearType(baseType)) {
-                                result = getAdaptedIterable(returnType, typedIterable, baseType);
-                            } else if (logger.isTraceEnabled()) {
-                                logger.trace("Iterable base type not found in registry");
-                            }
-                        } else if (registry.hasNearType(returnType)) {
-                            Class<?> farType = registry.getFarType(method.getReturnType());
-                            if (logger.isTraceEnabled()) {
-                                logger.trace("Far type of return type: " + display(farType));
-                            }
-                            if (farType.isInstance(result)) {
-                                BridgeFactory factory = registry.getBridgeFactory(farType);
-                                if (logger.isTraceEnabled()) {
-                                    logger.trace("Far type of return type factory: " + display(factory.getFarType()));
-                                    logger.trace("Result: " + display(result));
-                                    logger.trace("Return type: " + display(returnType) + ": factory PO type: " + display(factory.getNearType()));
-                                }
-                                try {
-                                    result = factory.getNearObject(result);
-                                } catch (ClassCastException exception) {
-                                    if (logger.isTraceEnabled()) {
-                                        logger.trace("Stack trace", exception);
-                                    }
-                                    throw exception;
-                                }
-                            }
-                        } else if (logger.isTraceEnabled()) {
-                            logger.trace("Not adapted");
-                        }
-                    }
-                    return result;
+            nearObject = newProxyInstance(getClass().getClassLoader(), nearType, interfaces, (object, method, parameters) -> {
+                Object result;
+                if (logger.isTraceEnabled()) {
+                    logger.trace("Facets getter: " + display(facetsGetter));
                 }
+                if (method.equals(facetsGetter)) {
+                    result = facets;
+                } else if (method.equals(facetsChecker)) {
+                    result = Boolean.TRUE;
+                } else {
+                    Binding binding = methodMap.get(method);
+                    if (binding == null) {
+                        String message = "No binding found: " + display(nearType) + ": " + display(method);
+                        logger.warn(message);
+                        throw new UnsupportedOperationException(message);
+                    }
+                    result = binding.invoke(facets, parameters);
+                    Class<?> returnType = method.getReturnType();
+                    if (logger.isTraceEnabled()) {
+                        logger.trace("Return type: " + displayWithTypes(returnType));
+                    }
+                    if (result instanceof TypedIterable) {
+                        TypedIterable<?> typedIterable = (TypedIterable<?>) result;
+                        Class<?> baseType = typedIterable.getType();
+                        if (logger.isTraceEnabled()) {
+                            logger.trace("Iterable base type: " + display(baseType));
+                        }
+                        if (registry.hasFarType(baseType)) {
+                            Class<?> type = getNearType(baseType);
+                            result = getAdaptedIterable(returnType, typedIterable, type);
+                        } else if (registry.hasNearType(baseType)) {
+                            result = getAdaptedIterable(returnType, typedIterable, baseType);
+                        } else if (logger.isTraceEnabled()) {
+                            logger.trace("Iterable base type not found in registry");
+                        }
+                    } else if (registry.hasNearType(returnType)) {
+                        Class<?> farType1 = registry.getFarType(method.getReturnType());
+                        if (logger.isTraceEnabled()) {
+                            logger.trace("Far type of return type: " + display(farType1));
+                        }
+                        if (farType1.isInstance(result)) {
+                            BridgeFactory factory = registry.getBridgeFactory(farType1);
+                            if (logger.isTraceEnabled()) {
+                                logger.trace("Far type of return type factory: " + display(factory.getFarType()));
+                                logger.trace("Result: " + display(result));
+                                logger.trace("Return type: " + display(returnType) + ": factory PO type: " + display(factory.getNearType()));
+                            }
+                            try {
+                                result = factory.getNearObject(result);
+                            } catch (ClassCastException exception) {
+                                if (logger.isTraceEnabled()) {
+                                    logger.trace("Stack trace", exception);
+                                }
+                                throw exception;
+                            }
+                        }
+                    } else if (logger.isTraceEnabled()) {
+                        logger.trace("Not adapted");
+                    }
+                }
+                return result;
             });
-            facets.setNearObject(result);
+            facets.setNearObject(nearObject);
         }
-        return result;
+        return nearObject;
     }
 
     protected Object getAdaptedIterable(Class<?> returnType, TypedIterable<?> typedIterable, Class<?> type) {
@@ -348,26 +344,23 @@ public class BridgeFactory {
             method = null;
         }
         final Method wrappedGetter = method;
-        return Proxy.newProxyInstance(getClass().getClassLoader(), interfaces, new InvocationHandler() {
-            @Override
-            public Object invoke(Object object, Method method, Object[] objects) throws Throwable {
-                Method delegateMethod = null;
-                if (objects == null || objects.length < 1) {
-                    try {
-                        delegateMethod = delegate.getClass().getMethod(method.getName());
-                    } catch (NoSuchMethodException exception) {
-                        // Ignore
-                    }
+        return Proxy.newProxyInstance(getClass().getClassLoader(), interfaces, (object, invokedMethod, objects) -> {
+            Method delegateMethod = null;
+            if (objects == null || objects.length < 1) {
+                try {
+                    delegateMethod = delegate.getClass().getMethod(invokedMethod.getName());
+                } catch (NoSuchMethodException exception) {
+                    // Ignore
                 }
-                if (delegateMethod == wrappedGetter) {
-                    return typedIterable;
-                }
-                if (delegateMethod == null) {
-                    throw new UnsupportedOperationException(display(method));
-                }
-
-                return delegateMethod.invoke(delegate);
             }
+            if (delegateMethod == wrappedGetter) {
+                return typedIterable;
+            }
+            if (delegateMethod == null) {
+                throw new UnsupportedOperationException(display(invokedMethod));
+            }
+
+            return delegateMethod.invoke(delegate);
         });
     }
 
@@ -383,11 +376,7 @@ public class BridgeFactory {
 
     protected  <NT> TypedIterable<NT> getBridgedTypedIterable(TypedIterable<?> typedIterable, final Class<NT> type, Class<?> baseType) {
         final BridgeFactory factory = registry.getBridgeFactory(baseType);
-        return new BaseNearIterable<>(typedIterable, type, new Function<Object, NT>(){
-            public NT apply(Object x) {
-                return type.cast(factory.getNearObject(x));
-            }
-        });
+        return new BaseNearIterable<>(typedIterable, type, x -> type.cast(factory.getNearObject(x)));
     }
 
     /**
@@ -611,12 +600,7 @@ public class BridgeFactory {
             return new TransformingIterable<>(
                     iterable,
                     farType,
-                    new Function<Object, FT>() {
-                        @Override
-                        public FT apply(Object x) {
-                            return farType.cast(getFarObject(x));
-                        }
-                    }
+                    x -> farType.cast(getFarObject(x))
             );
         }
 
@@ -672,12 +656,7 @@ public class BridgeFactory {
         }
 
         protected <FT> TransformingIterable<FT> getTransformingIterable(Iterable<?> iterable, final Class<FT> farType) {
-            return new TransformingIterable<>(iterable, farType, new Function<Object, FT>() {
-                @Override
-                public FT apply(Object x) {
-                    return farType.cast(getFarObject(x));
-                }
-            });
+            return new TransformingIterable<>(iterable, farType, x -> farType.cast(getFarObject(x)));
         }
 
         @Override
@@ -805,9 +784,7 @@ public class BridgeFactory {
                     }
                     messages.add(")");
                 }
-                for (String message : messages) {
-                    logger.trace(message);
-                }
+                messages.forEach(logger::trace);
                 logger.trace("Method: " + display(method));
             }
             Object result;

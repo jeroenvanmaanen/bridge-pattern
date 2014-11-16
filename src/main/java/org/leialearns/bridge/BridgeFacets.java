@@ -5,18 +5,12 @@ import org.leialearns.utilities.Setting;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Supplier;
 
 /**
  * Composes the near object, the far object, and intermediate stateful helpers that together comprise a bridge instance.
  */
 public class BridgeFacets {
-    private Setting<Object> nearObject = new Setting<>("Near Object", new Supplier<Object>() {
-        @Override
-        public Object get() {
-            return bridgeFactory.getNearObject(farObject);
-        }
-    });
+    private Setting<Object> nearObject;
     private final FarObject<?> farObject;
     private final BridgeFactory bridgeFactory;
     private final Map<Object, Object> helpers;
@@ -32,6 +26,7 @@ public class BridgeFacets {
         this.farObject = farObject;
         this.bridgeFactory = bridgeFactory;
         this.helpers = (helpers == null ? Collections.emptyMap() : Collections.unmodifiableMap(new HashMap<Object, Object>(helpers)));
+        this.nearObject = new Setting<>("Near Object", () -> bridgeFactory.getNearObject(farObject));
     }
 
     /**

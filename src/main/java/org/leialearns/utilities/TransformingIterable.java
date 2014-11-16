@@ -20,27 +20,24 @@ public class TransformingIterable<T> extends TypedIterable<T> {
     }
 
     protected static <T> Iterable<T> getIterable(final Iterable<?> iterable, final Function<Object, T> transformation) {
-        return new Iterable<T>() {
-            @Override
-            public Iterator<T> iterator() {
-                final Iterator<?> delegate = iterable.iterator();
-                return new Iterator<T>() {
-                    @Override
-                    public boolean hasNext() {
-                        return delegate.hasNext();
-                    }
+        return () -> {
+            final Iterator<?> delegate = iterable.iterator();
+            return new Iterator<T>() {
+                @Override
+                public boolean hasNext() {
+                    return delegate.hasNext();
+                }
 
-                    @Override
-                    public T next() {
-                        return transformation.apply(delegate.next());
-                    }
+                @Override
+                public T next() {
+                    return transformation.apply(delegate.next());
+                }
 
-                    @Override
-                    public void remove() {
-                        throw new UnsupportedOperationException();
-                    }
-                };
-            }
+                @Override
+                public void remove() {
+                    throw new UnsupportedOperationException();
+                }
+            };
         };
     }
 }
