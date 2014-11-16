@@ -1,17 +1,17 @@
 package org.leialearns.bridge;
 
-import org.leialearns.utilities.Expression;
 import org.leialearns.utilities.Setting;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Supplier;
 
 /**
  * Composes the near object, the far object, and intermediate stateful helpers that together comprise a bridge instance.
  */
 public class BridgeFacets {
-    private Setting<Object> nearObject = new Setting<>("Near Object", new Expression<Object>() {
+    private Setting<Object> nearObject = new Setting<>("Near Object", new Supplier<Object>() {
         @Override
         public Object get() {
             return bridgeFactory.getNearObject(farObject);

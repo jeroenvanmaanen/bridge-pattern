@@ -1,6 +1,7 @@
 package org.leialearns.utilities;
 
 import java.util.Iterator;
+import java.util.function.Function;
 
 /**
  * Produces iterators that transform each element returned by an iterator of a backing iterable.
@@ -31,7 +32,7 @@ public class TransformingIterable<T> extends TypedIterable<T> {
 
                     @Override
                     public T next() {
-                        return transformation.get(delegate.next());
+                        return transformation.apply(delegate.next());
                     }
 
                     @Override

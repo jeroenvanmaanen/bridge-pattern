@@ -1,8 +1,6 @@
 package org.leialearns.bridge;
 
 import org.leialearns.utilities.ExceptionWrapper;
-import org.leialearns.utilities.Expression;
-import org.leialearns.utilities.Function;
 import org.leialearns.utilities.HasWrappedIterable;
 import org.leialearns.utilities.Setting;
 import org.leialearns.utilities.TransformingIterable;
@@ -20,6 +18,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 import static org.leialearns.bridge.Static.getFarObject;
 import static org.leialearns.utilities.Display.asDisplayWithTypes;
@@ -384,7 +384,7 @@ public class BridgeFactory {
     protected  <NT> TypedIterable<NT> getBridgedTypedIterable(TypedIterable<?> typedIterable, final Class<NT> type, Class<?> baseType) {
         final BridgeFactory factory = registry.getBridgeFactory(baseType);
         return new BaseNearIterable<>(typedIterable, type, new Function<Object, NT>(){
-            public NT get(Object x) {
+            public NT apply(Object x) {
                 return type.cast(factory.getNearObject(x));
             }
         });
@@ -613,7 +613,7 @@ public class BridgeFactory {
                     farType,
                     new Function<Object, FT>() {
                         @Override
-                        public FT get(Object x) {
+                        public FT apply(Object x) {
                             return farType.cast(getFarObject(x));
                         }
                     }
@@ -630,7 +630,7 @@ public class BridgeFactory {
     protected class BridgeIterableAdapter implements BridgeAdapter {
         private final int index;
         private final Class<?> adapterNearType;
-        private final Setting<Class<?>> adapterFarType = new Setting<>("Iterable adapter far type", new Expression<Class<?>>() {
+        private final Setting<Class<?>> adapterFarType = new Setting<>("Iterable adapter far type", new Supplier<Class<?>>() {
             @Override
             public Class<?> get() {
                 return registry.getFarType(adapterNearType);
@@ -674,7 +674,7 @@ public class BridgeFactory {
         protected <FT> TransformingIterable<FT> getTransformingIterable(Iterable<?> iterable, final Class<FT> farType) {
             return new TransformingIterable<>(iterable, farType, new Function<Object, FT>() {
                 @Override
-                public FT get(Object x) {
+                public FT apply(Object x) {
                     return farType.cast(getFarObject(x));
                 }
             });

@@ -1,7 +1,8 @@
 package org.leialearns.bridge;
 
-import org.leialearns.utilities.Function;
 import org.leialearns.utilities.TransformingIterable;
+
+import java.util.function.Function;
 
 /**
  * Convenience class that can be used as a super class for classes that implement

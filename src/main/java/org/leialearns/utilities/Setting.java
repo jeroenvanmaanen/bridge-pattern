@@ -3,6 +3,9 @@ package org.leialearns.utilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.function.Function;
+import java.util.function.Supplier;
+
 import static org.leialearns.utilities.Display.display;
 import static org.leialearns.utilities.Display.displayParts;
 import static org.leialearns.utilities.Static.getLoggingClass;
@@ -16,7 +19,7 @@ import static org.leialearns.utilities.Static.getLoggingClass;
 public class Setting<T> {
     private final Logger logger = getLogger();
     private final String name;
-    private final Expression<T> defaultExpression;
+    private final Supplier<T> defaultExpression;
     private final Object lock = new Object();
     private volatile T value = null;
 
@@ -26,7 +29,7 @@ public class Setting<T> {
      * @param name A label for the setting
      * @param defaultExpression An expression that lazily returns a default value
      */
-    public Setting(String name, Expression<T> defaultExpression) {
+    public Setting(String name, Supplier<T> defaultExpression) {
         this.name = name;
         this.defaultExpression = defaultExpression;
     }
@@ -38,7 +41,7 @@ public class Setting<T> {
      * @param defaultValue The default value
      */
     public Setting(String name, final T defaultValue) {
-        this(name, new Expression<T>() {
+        this(name, new Supplier<T>() {
             @Override
             public T get() {
                 return defaultValue;
@@ -80,11 +83,11 @@ public class Setting<T> {
         return getInternal(
             new Function<T, T>() {
                 @Override
-                public T get(T x) {
+                public T apply(T x) {
                     return x;
                 }
             },
-            new Expression<T>() {
+            new Supplier<T>() {
                 @Override
                 public T get() {
                     T defaultValue = defaultExpression.get();
@@ -106,11 +109,11 @@ public class Setting<T> {
         return getInternal(
                 new Function<T, Boolean>() {
                     @Override
-                    public Boolean get(T x) {
+                    public Boolean apply(T x) {
                         return true;
                     }
                 },
-                new Expression<Boolean>() {
+                new Supplier<Boolean>() {
                     @Override
                     public Boolean get() {
                         return false;
@@ -119,7 +122,7 @@ public class Setting<T> {
         );
     }
 
-    protected <Q> Q getInternal(Function<T,Q> successCase, Expression<Q> failureCase) {
+    protected <Q> Q getInternal(Function<T,Q> successCase, Supplier<Q> failureCase) {
         Q result = null;
         T thisValue = this.value;
         if (thisValue == null) {
@@ -138,7 +141,7 @@ public class Setting<T> {
             }
         }
         if (thisValue != null) {
-            result = successCase.get(thisValue);
+            result = successCase.apply(thisValue);
         }
         return result;
     }

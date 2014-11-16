@@ -139,6 +139,14 @@ public class TestUtilities {
         assertEquals(12, gcd(7*12, 13*12));
     }
 
+    @Test
+    public void testSetting() {
+        Setting<Boolean> setting = new Setting<>("Test setting", true);
+        assertTrue(setting.offer(false));
+        assertTrue(setting.offer(false));
+        assertFalse(setting.offer(true));
+    }
+
     public static void beforeClass(Setting<String> projectDirSetting) throws IOException {
         // Expected to be run from Maven, therefore the user.dir is assumed to be identical to the project directory.
         String projectDir = System.getProperty("user.dir");

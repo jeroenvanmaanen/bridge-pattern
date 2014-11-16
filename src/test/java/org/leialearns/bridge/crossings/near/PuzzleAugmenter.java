@@ -7,7 +7,6 @@ import org.leialearns.bridge.crossings.api.MessageType;
 import org.leialearns.bridge.crossings.api.Orientation;
 import org.leialearns.bridge.crossings.api.Puzzle;
 import org.leialearns.bridge.crossings.api.Word;
-import org.leialearns.utilities.Expression;
 import org.leialearns.utilities.Setting;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,12 +17,13 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 
 import static org.leialearns.utilities.Static.getLoggingClass;
 
 public class PuzzleAugmenter extends BaseBridgeFacet {
     private final Logger logger = LoggerFactory.getLogger(getLoggingClass(this));
-    private Setting<Puzzle> puzzle = new Setting<>("Puzzle", new Expression<Puzzle>() {
+    private Setting<Puzzle> puzzle = new Setting<>("Puzzle", new Supplier<Puzzle>() {
         @Override
         public Puzzle get() {
             return (Puzzle) getBridgeFacets().getNearObject();
