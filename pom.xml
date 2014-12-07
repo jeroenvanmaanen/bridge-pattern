@@ -9,7 +9,7 @@
 
     <groupId>org.leialearns</groupId>
     <artifactId>bridge-pattern</artifactId>
-    <version>0.3</version>
+    <version>0.4-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Bridge pattern</name>
@@ -24,10 +24,10 @@
     </licenses>
 
     <scm>
-        <connection>scm:git:https://github.com/jeroenvanmaanen/bridge-pattern.git</connection>
-        <developerConnection>scm:git:https://github.com/jeroenvanmaanen/bridge-pattern.git</developerConnection>
+        <url>https://github.com/jeroenvanmaanen/bridge-pattern.git</url>
+        <connection>scm:git:git://github.com/jeroenvanmaanen/bridge-pattern.git</connection>
+        <developerConnection>scm:git:git@github.com:jeroenvanmaanen/bridge-pattern.git</developerConnection>
         <tag>HEAD</tag>
-        <url>https://github.com/jeroenvanmaanen/bridge-pattern</url>
     </scm>
 
     <developers>
