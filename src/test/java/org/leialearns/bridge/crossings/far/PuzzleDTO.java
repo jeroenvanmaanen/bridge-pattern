@@ -4,7 +4,7 @@ import org.leialearns.bridge.BridgeOverride;
 import org.leialearns.bridge.FarObject;
 import org.leialearns.bridge.crossings.api.Orientation;
 import org.leialearns.bridge.crossings.api.Puzzle;
-import org.leialearns.utilities.TypedIterable;
+import org.leialearns.common.TypedIterable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,7 +16,7 @@ public class PuzzleDTO implements FarObject<Puzzle> {
 
     public PuzzleDTO() {
         for (Orientation orientation : Orientation.values()) {
-            words.put(orientation, new ArrayList<WordDTO>());
+            words.put(orientation, new ArrayList<>());
         }
     }
 

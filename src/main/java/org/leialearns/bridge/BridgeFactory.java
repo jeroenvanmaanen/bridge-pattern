@@ -1,10 +1,10 @@
 package org.leialearns.bridge;
 
-import org.leialearns.utilities.ExceptionWrapper;
-import org.leialearns.utilities.HasWrappedIterable;
-import org.leialearns.utilities.Setting;
-import org.leialearns.utilities.TransformingIterable;
-import org.leialearns.utilities.TypedIterable;
+import org.leialearns.common.ExceptionWrapper;
+import org.leialearns.common.HasWrappedIterable;
+import org.leialearns.common.Setting;
+import org.leialearns.common.TransformingIterable;
+import org.leialearns.common.TypedIterable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +21,13 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 import static org.leialearns.bridge.Static.getFarObject;
-import static org.leialearns.utilities.Display.asDisplayWithTypes;
-import static org.leialearns.utilities.Display.display;
-import static org.leialearns.utilities.Display.displayWithTypes;
-import static org.leialearns.utilities.Display.displayParts;
-import static org.leialearns.utilities.Static.getLoggingClass;
-import static org.leialearns.utilities.Static.offer;
+import static org.leialearns.common.Display.asDisplayWithTypes;
+import static org.leialearns.common.Display.display;
+import static org.leialearns.common.Display.displayWithTypes;
+import static org.leialearns.common.Display.displayParts;
+import static org.leialearns.common.Static.getLoggingClass;
+import static org.leialearns.common.Static.offer;
+import static org.leialearns.common.Static.offerArray;
 
 /**
  * <p>Provides a factory with supporting classes that generates implementations of a logical interface whose methods are
@@ -160,7 +161,7 @@ public class BridgeFactory {
     public void setRegistry(BridgeHeadTypeRegistry registry) {
         this.registry = registry;
         registry.register(this);
-        Method[] methods = offer(Object.class.getMethods(), nearType.getMethods());
+        Method[] methods = offerArray(Object.class.getMethods(), nearType.getMethods());
         for (Method method : methods) {
             if (logger.isTraceEnabled()) {
                 logger.trace("Method: " + display(method) + ": in: " + display(nearType));

@@ -1,6 +1,6 @@
 package org.leialearns.bridge;
 
-import org.leialearns.utilities.Setting;
+import org.leialearns.common.Setting;
 
 /**
  * Convenience class that can be used as a super class for classes that should implement

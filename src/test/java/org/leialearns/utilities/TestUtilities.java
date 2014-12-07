@@ -3,148 +3,26 @@ package org.leialearns.utilities;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.leialearns.common.Setting;
 import org.leialearns.executable.LogConfigurator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
-import javax.validation.constraints.NotNull;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.leialearns.utilities.Display.display;
-import static org.leialearns.utilities.Static.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"/org/leialearns/bridge/crossings/AppTest-context.xml"})
 @TestExecutionListeners(value = {DependencyInjectionTestExecutionListener.class,ExecutionListener.class})
 public class TestUtilities {
-    private final Logger logger = LoggerFactory.getLogger(getLoggingClass(this));
 
     @BeforeClass
     public static void beforeClass() throws IOException {
         beforeClass(null);
-    }
-
-    @Test
-    public void testDisplay() {
-        logger.info(display(new String[]{"Hello", " ", "World", null}));
-    }
-
-    @Test
-    public void testNotNull() {
-        Iterable<Integer> iterable = notNull(null);
-        assertNotNull(iterable);
-        assertFalse(iterable.iterator().hasNext());
-
-        Iterable<Integer> nonEmpty = Arrays.asList(1, 2);
-        Iterable<Integer> notNull = notNull(nonEmpty);
-        assertTrue(notNull == nonEmpty);
-    }
-
-    @Test
-    public void testAsList() {
-        List<Integer> fib = Arrays.asList(1, 1, 2, 3, 5, 8, 13);
-        List<Integer> copy = asList(fib);
-        Iterator iterator = copy.iterator();
-        for (Integer f : fib) {
-            assertTrue(iterator.hasNext());
-            assertEquals(f, iterator.next());
-        }
-        assertFalse(iterator.hasNext());
-    }
-
-    @Test
-    public void testToList() {
-        List<Integer> fib = Arrays.asList(1, 1, 2, 3, 5, 8, 13);
-        TypedIterable<Integer> fibonacci = new TypedIterable<>(fib, Integer.class);
-        List<Integer> copy = toList(fibonacci);
-        Iterator iterator = copy.iterator();
-        for (Integer f : fib) {
-            assertTrue(iterator.hasNext());
-            assertEquals(f, iterator.next());
-        }
-        assertFalse(iterator.hasNext());
-    }
-
-    @Test
-    public void testCompare() {
-        assertEquals(0, compare(null, null));
-        assertEquals(0, compare(1, 1));
-        assertEquals(0, compare("abc", "a" + "bc"));
-        Comparable trivial = new Trivial();
-        assertEquals(-1,compare(null,trivial));
-        assertEquals(1, compare(trivial, null));
-    }
-
-    @Test
-    public void testEqual() {
-        assertTrue(equal(null, null));
-        assertTrue(equal(1, 1));
-        assertTrue(equal("abc", "a" + "bc"));
-        Object trivial = new Object();
-        assertFalse(equal(null, trivial));
-        assertFalse(equal(trivial, null));
-    }
-
-    @Test
-    public void testOfferSingle() {
-        Integer[] array = offer(0, new Integer[] {1, 2});
-        assertEquals(3, array.length);
-        for (int i = 0; i < array.length; i++) {
-            assertEquals(i, array[i].intValue());
-        }
-    }
-
-    @Test
-    public void testOfferMultiple() {
-        Integer[] array = offer(new Integer[] {0, 1}, new Integer[] {2, 3});
-        assertEquals(4, array.length);
-        for (int i = 0; i < array.length; i++) {
-            assertEquals(i, array[i].intValue());
-        }
-    }
-
-    @Test
-    public void testNewArrayInstance() {
-        Integer[] intArray = newArrayInstance(new Integer[0], 5);
-        assertNotNull(intArray);
-        assertTrue(intArray.getClass().isArray());
-        assertEquals(Integer.class, intArray.getClass().getComponentType());
-        assertEquals(5, intArray.length);
-
-        Comparable<?>[] stringArray = newArrayInstance(new String[0], 5);
-        assertNotNull(stringArray);
-        assertTrue(stringArray.getClass().isArray());
-        assertEquals(String.class, stringArray.getClass().getComponentType());
-        assertEquals(5, stringArray.length);
-    }
-
-    @Test
-    public void testGCD() {
-        assertEquals(1, gcd(1, 1));
-        assertEquals(1, gcd(7, 13));
-        assertEquals(12, gcd(7*12, 13*12));
-    }
-
-    @Test
-    public void testSetting() {
-        Setting<Boolean> setting = new Setting<>("Test setting", true);
-        assertTrue(setting.offer(false));
-        assertTrue(setting.offer(false));
-        assertFalse(setting.offer(true));
     }
 
     public static void beforeClass(Setting<String> projectDirSetting) throws IOException {
@@ -176,11 +54,8 @@ public class TestUtilities {
         return result.getAbsolutePath();
     }
 
-    private static class Trivial implements Comparable<Trivial> {
-        @Override
-        public int compareTo(@NotNull Trivial other) {
-            throw new UnsupportedOperationException("Unexpected call to compareTo(Trivial)");
-        }
+    @Test
+    public void noTest() {
+        // Ignore
     }
-
 }

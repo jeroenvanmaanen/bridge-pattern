@@ -5,8 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.test.context.TestContext;
 import org.springframework.test.context.support.AbstractTestExecutionListener;
 
-import static org.leialearns.utilities.Display.display;
-import static org.leialearns.utilities.Static.getLoggingClass;
+import static org.leialearns.common.Display.display;
+import static org.leialearns.common.Static.getLoggingClass;
 
 public class ExecutionListener extends AbstractTestExecutionListener {
     private final Logger logger = LoggerFactory.getLogger(getLoggingClass(this));

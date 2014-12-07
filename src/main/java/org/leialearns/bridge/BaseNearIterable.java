@@ -1,6 +1,6 @@
 package org.leialearns.bridge;
 
-import org.leialearns.utilities.TransformingIterable;
+import org.leialearns.common.TransformingIterable;
 
 import java.util.function.Function;
 

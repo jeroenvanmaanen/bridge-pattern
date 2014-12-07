@@ -1,7 +1,7 @@
 package org.leialearns.bridge;
 
-import org.leialearns.utilities.ExceptionWrapper;
-import org.leialearns.utilities.Setting;
+import org.leialearns.common.ExceptionWrapper;
+import org.leialearns.common.Setting;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.TargetSource;
@@ -13,8 +13,8 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import static org.leialearns.utilities.Display.display;
-import static org.leialearns.utilities.Static.getLoggingClass;
+import static org.leialearns.common.Display.display;
+import static org.leialearns.common.Static.getLoggingClass;
 
 /**
  * Injects registered {@link BridgeFactory} beans into bean properties of type {@link FactoryAccessor}.

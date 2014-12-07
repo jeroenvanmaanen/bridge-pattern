@@ -1,6 +1,6 @@
 package org.leialearns.executable;
 
-import org.leialearns.utilities.Setting;
+import org.leialearns.common.Setting;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,7 +19,7 @@ public class LineFilterInputStream extends InputStream {
     private LineFilter lineFilter;
     private byte[] buffer = new byte[] { 10 };
     private int index = 0;
-    private final Setting<Boolean> verbose = new Setting<Boolean>("Verbose", false);
+    private final Setting<Boolean> verbose = new Setting<>("Verbose", false);
 
     /**
      * Creates a new <code>LineFilterInputStream</code> instance.

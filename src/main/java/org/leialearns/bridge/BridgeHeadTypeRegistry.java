@@ -9,8 +9,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.leialearns.utilities.Display.display;
-import static org.leialearns.utilities.Static.getLoggingClass;
+import static org.leialearns.common.Display.display;
+import static org.leialearns.common.Static.getLoggingClass;
 
 /**
  * Registers types of objects that are used at both ends (bridge heads) of bridge objects as created by a

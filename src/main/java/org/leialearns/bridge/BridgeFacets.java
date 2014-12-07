@@ -1,6 +1,6 @@
 package org.leialearns.bridge;
 
-import org.leialearns.utilities.Setting;
+import org.leialearns.common.Setting;
 
 import java.util.Collections;
 import java.util.HashMap;

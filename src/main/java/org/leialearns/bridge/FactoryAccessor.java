@@ -1,11 +1,11 @@
 package org.leialearns.bridge;
 
-import org.leialearns.utilities.Setting;
+import org.leialearns.common.Setting;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static org.leialearns.utilities.Display.display;
-import static org.leialearns.utilities.Static.getLoggingClass;
+import static org.leialearns.common.Display.display;
+import static org.leialearns.common.Static.getLoggingClass;
 
 /**
  * Provides type-safe access to the {@link BridgeFactory} of a given near type. The factory bean has to be injected,

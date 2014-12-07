@@ -1,7 +1,7 @@
 package org.leialearns.bridge.crossings.far;
 
 import org.leialearns.bridge.BridgeOverride;
-import org.leialearns.utilities.ExceptionWrapper;
+import org.leialearns.common.ExceptionWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -22,8 +22,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.leialearns.utilities.Display.display;
-import static org.leialearns.utilities.Static.getLoggingClass;
+import static org.leialearns.common.Display.display;
+import static org.leialearns.common.Static.getLoggingClass;
 
 public class PuzzleDAO {
     private final Logger logger = LoggerFactory.getLogger(getLoggingClass(this));
