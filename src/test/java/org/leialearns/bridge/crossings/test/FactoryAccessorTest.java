@@ -6,7 +6,7 @@ import org.leialearns.bridge.BridgeFactory;
 import org.leialearns.bridge.FactoryAccessor;
 import org.leialearns.bridge.crossings.api.Puzzle;
 import org.leialearns.bridge.crossings.far.PuzzleDTO;
-import org.leialearns.utilities.ExecutionListener;
+import org.leialearns.spring.test.ExecutionListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
